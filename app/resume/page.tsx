@@ -62,13 +62,9 @@ export default function ResumePage() {
           <p className="text-muted-foreground text-sm mt-1">My professional experience and technical history.</p>
         </div>
         
-        {/* Mock pdf download trigger */}
         <a
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            alert("This is a portfolio demonstration. In production, this button links to your downloadable resume PDF.");
-          }}
+          href="/resume.pdf"
+          download
           className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2.5 rounded-xl text-sm font-medium transition-all shadow-sm cursor-pointer"
         >
           <Download size={16} />
