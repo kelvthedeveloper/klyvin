@@ -6,7 +6,7 @@ import { Certificate } from "@/lib/site-data";
 
 export function CertificatesSection({ certificates }: { certificates: Certificate[] }) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const spotlight = certificates.find((c) => c.spotlight) || certificates[0];
+  const spotlight = certificates[0];
   const active = certificates[activeIndex] || spotlight;
 
   return (
