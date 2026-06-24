@@ -1,64 +1,45 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Kelvin | Full-Stack Software Engineer & Product Builder",
-  description: "Explore the professional portfolio of Kelvin, a Full-Stack Developer specializing in SaaS platforms, AI-powered applications, and clean software architecture.",
-  keywords: ["Full-Stack Engineer", "React Developer", "Next.js Portfolio", "Software Engineer Portfolio", "TypeScript", "Tailwind CSS"],
-  authors: [{ name: "Kelvin" }],
+  title: "Kelvin Nii Amu Okai | Full-Stack Developer",
+  description:
+    "Portfolio of Kelvin Nii Amu Okai — Full-Stack Developer at Klyvin, building AI-powered SaaS with Next.js, React, TypeScript, and Django.",
+  keywords: [
+    "Kelvin Nii Amu Okai",
+    "Full-Stack Developer",
+    "Klyvin",
+    "Next.js",
+    "React",
+    "TypeScript",
+    "Accra Ghana",
+  ],
+  authors: [{ name: "Kelvin Nii Amu Okai" }],
   openGraph: {
-    title: "Kelvin | Full-Stack Software Engineer",
-    description: "Explore my projects, SaaS platforms, and software engineering insights.",
+    title: "Kelvin Nii Amu Okai | Full-Stack Developer",
+    description: "Building AI-powered SaaS platforms with Next.js, React, TypeScript, and Django.",
     type: "website",
-    locale: "en_US",
+    url: "https://klyvin.vercel.app",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Kelvin | Full-Stack Software Engineer",
-    description: "Explore my projects, SaaS platforms, and software engineering insights.",
-  }
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-      suppressHydrationWarning
-    >
-      <body className="min-h-full flex flex-col antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="flex flex-col min-h-screen gradient-bg">
-            <Navbar />
-            <main className="flex-1 flex flex-col w-full">
-              {children}
-            </main>
-            <Footer />
-          </div>
-        </ThemeProvider>
+    <html lang="en" className={`${inter.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col bg-background text-foreground">
+        <Navbar />
+        <main className="flex-1 w-full">{children}</main>
+        <Footer />
       </body>
     </html>
   );

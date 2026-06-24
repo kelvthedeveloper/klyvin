@@ -8,7 +8,6 @@ import { Project } from "@/lib/content";
 export function ProjectList({ projects }: { projects: Project[] }) {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
-  // Extract unique tags
   const allTags = Array.from(new Set(projects.flatMap((p) => p.tags))).sort();
 
   const filteredProjects = selectedTag
@@ -17,7 +16,6 @@ export function ProjectList({ projects }: { projects: Project[] }) {
 
   return (
     <div className="space-y-8">
-      {/* Filters */}
       <div className="flex flex-wrap gap-2">
         <button
           onClick={() => setSelectedTag(null)}
@@ -44,13 +42,15 @@ export function ProjectList({ projects }: { projects: Project[] }) {
         ))}
       </div>
 
-      {/* Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {filteredProjects.map((project) => (
           <div
             key={project.slug}
             className="flex flex-col p-6 rounded-2xl border border-border/40 bg-card/45 backdrop-blur-sm shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-300 group"
           >
+            <span className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground mb-1">
+              {project.category}
+            </span>
             <h2 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors leading-snug">
               <Link href={`/projects/${project.slug}`}>{project.title}</Link>
             </h2>

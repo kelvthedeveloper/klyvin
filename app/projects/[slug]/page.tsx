@@ -1,7 +1,7 @@
+import Link from "next/link";
+import { ArrowLeft, Github, ExternalLink } from "lucide-react";
 import { getProjectBySlug, getProjects } from "@/lib/content";
 import { notFound } from "next/navigation";
-import Link from "next/link";
-import { ArrowLeft, Tag, Github, ExternalLink, ShieldAlert, Award } from "lucide-react";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -9,137 +9,104 @@ interface PageProps {
 
 export async function generateStaticParams() {
   const projects = await getProjects();
-  return projects.map((p) => ({
-    slug: p.slug,
-  }));
+  return projects.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps) {
-  const resolvedParams = await params;
-  const project = await getProjectBySlug(resolvedParams.slug);
-  if (!project) return { title: "Project Not Found" };
-
-  return {
-    title: `${project.title} | Kelvin's Portfolio`,
-    description: project.description,
-  };
+  const { slug } = await params;
+  const project = await getProjectBySlug(slug);
+  if (!project) return { title: "Not Found" };
+  return { title: `${project.title} | Kelvin`, description: project.description };
 }
 
 export default async function ProjectDetailPage({ params }: PageProps) {
-  const resolvedParams = await params;
-  const project = await getProjectBySlug(resolvedParams.slug);
-
-  if (!project) {
-    notFound();
-  }
+  const { slug } = await params;
+  const project = await getProjectBySlug(slug);
+  if (!project) notFound();
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-12 md:py-20 space-y-12">
-      {/* Back Button */}
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-20 space-y-10">
       <Link
         href="/projects"
-        className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors group cursor-pointer"
+        className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
       >
-        <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-        Back to projects
+        <ArrowLeft size={16} /> Back to projects
       </Link>
 
-      {/* Header */}
-      <div className="space-y-6">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
-          {project.title}
-        </h1>
-        <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-          {project.description}
-        </p>
-
-        {/* Links & Tags */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-b border-border/40 py-4">
-          <div className="flex flex-wrap gap-1.5">
-            {project.tags.map((tag) => (
-              <span
-                key={tag}
-                className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground bg-secondary/80 px-2.5 py-1 rounded border border-border/20"
-              >
-                <Tag size={10} />
-                {tag}
-              </span>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-4">
-            {project.githubUrl && (
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Github size={18} />
-                GitHub
-              </a>
-            )}
-            {project.demoUrl && (
-              <a
-                href={project.demoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
-              >
-                <ExternalLink size={18} />
-                Live Demo
-              </a>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* Key Features */}
       <div className="space-y-4">
-        <h2 className="text-xl font-bold">Key Features</h2>
-        <ul className="grid grid-cols-1 gap-3">
-          {project.features.map((feature, idx) => (
-            <li key={idx} className="flex items-start gap-3 p-4 rounded-xl border border-border/40 bg-card/30 backdrop-blur-sm">
-              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary text-xs font-semibold mt-0.5">
-                {idx + 1}
-              </span>
-              <span className="text-sm text-muted-foreground leading-relaxed">{feature}</span>
-            </li>
+        <span className="text-xs font-semibold text-primary uppercase tracking-wider">
+          {project.category}
+        </span>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold">{project.title}</h1>
+        <p className="text-muted-foreground text-lg leading-relaxed">{project.description}</p>
+
+        <div className="flex flex-wrap gap-3 pt-2">
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-foreground text-background text-sm font-semibold hover:bg-foreground/90"
+            >
+              <Github size={16} /> GitHub
+            </a>
+          )}
+          {project.demoUrl && !project.demoUrl.includes("example.com") && (
+            <a
+              href={project.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90"
+            >
+              <ExternalLink size={16} /> Live Demo
+            </a>
+          )}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        {project.metrics.map((m, i) => (
+          <div key={i} className="bg-secondary rounded-2xl p-4 text-center">
+            <p className="text-xl font-bold text-primary">{m.value}</p>
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground mt-1">{m.label}</p>
+          </div>
+        ))}
+      </div>
+
+      {project.problem && (
+        <div className="bg-secondary rounded-2xl p-6 sm:p-8 space-y-2">
+          <h2 className="font-bold">The Problem</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">{project.problem}</p>
+        </div>
+      )}
+
+      <div className="space-y-4">
+        <h2 className="font-bold text-lg">Key Features</h2>
+        <div className="grid gap-3">
+          {project.features.map((f, i) => (
+            <div key={i} className="bg-secondary rounded-2xl p-5">
+              <h3 className="font-semibold text-sm">{f.title}</h3>
+              {f.description && (
+                <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{f.description}</p>
+              )}
+            </div>
           ))}
-        </ul>
-      </div>
-
-      {/* Grid: Challenges & Lessons */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="p-6 rounded-2xl border border-border/40 bg-card/45 backdrop-blur-sm space-y-3">
-          <div className="flex items-center gap-2 text-rose-500 font-semibold text-sm">
-            <ShieldAlert size={18} />
-            <h3>Challenges Faced</h3>
-          </div>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            {project.challenges}
-          </p>
-        </div>
-
-        <div className="p-6 rounded-2xl border border-border/40 bg-card/45 backdrop-blur-sm space-y-3">
-          <div className="flex items-center gap-2 text-emerald-500 font-semibold text-sm">
-            <Award size={18} />
-            <h3>Lessons Learned</h3>
-          </div>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            {project.lessons}
-          </p>
         </div>
       </div>
 
-      {/* Details & Architecture */}
-      <div className="space-y-4 border-t border-border/40 pt-8">
-        <h2 className="text-xl font-bold mb-4">Detailed Case Study</h2>
-        <div 
-          className="prose max-w-none"
-          dangerouslySetInnerHTML={{ __html: project.contentHtml }}
-        />
-      </div>
+      {project.engineeringChallenges.length > 0 && (
+        <div className="space-y-4">
+          <h2 className="font-bold text-lg">Engineering Challenges</h2>
+          {project.engineeringChallenges.map((c, i) => (
+            <div key={i} className="border border-border rounded-2xl p-5 space-y-2 text-sm">
+              <p><strong className="text-primary">Challenge:</strong> <span className="text-muted-foreground">{c.challenge}</span></p>
+              <p><strong className="text-foreground">Solution:</strong> <span className="text-muted-foreground">{c.solution}</span></p>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: project.contentHtml }} />
     </div>
   );
 }
