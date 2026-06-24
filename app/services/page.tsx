@@ -14,7 +14,7 @@ export default function ServicesPage() {
         <PageHeader
           label="What I Do"
           title="Services I Provide"
-          description="End-to-end software engineering — from UI to API to deployment."
+          description="Pick a service to see deliverables, tech stack, and who it is best suited for — then let's talk scope."
         />
       </div>
       <ServicesAccordion services={services} />

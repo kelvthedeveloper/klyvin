@@ -9,8 +9,11 @@ export interface Experience {
 export interface Service {
   id: string;
   title: string;
+  summary: string;
   tags: string[];
   description: string;
+  deliverables: string[];
+  idealFor: string;
   image?: string;
 }
 
@@ -37,7 +40,7 @@ export const siteInfo = {
   location: "Accra, Ghana",
   title: "Full-Stack Developer, SaaS Builder & AI Integrator",
   bio: "I'm Kelvin Nii Amu Okai, a full-stack developer based in Accra, Ghana, building modern web applications with Next.js, React, TypeScript, and Django. Through Klyvin, I design and ship AI-powered SaaS products that solve real business problems.",
-  email: "hello@klyvin.com",
+  email: "kelvthedeveloper@gmail.com",
   phone: "",
   website: "https://klyvin.vercel.app",
   socials: {
@@ -69,42 +72,88 @@ export const tickerItems = [
   "UI Engineering",
 ];
 
+export const serviceHighlights = [
+  { value: "5", label: "Core services" },
+  { value: "2–8 wks", label: "Typical delivery" },
+  { value: "10+", label: "Products shipped" },
+];
+
 export const services: Service[] = [
   {
     id: "01",
     title: "Frontend Engineering",
-    tags: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Responsive UI"],
+    summary: "Fast, polished interfaces that convert and scale.",
+    tags: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Accessibility"],
     description:
-      "Pixel-perfect, performance-first interfaces built with React and Next.js. From landing pages to complex dashboards — fast load times, accessible components, and smooth interactions.",
+      "I build responsive UIs with clean component architecture, strong performance budgets, and accessibility baked in — from marketing sites to data-heavy dashboards.",
+    deliverables: [
+      "Component library & design system alignment",
+      "Core Web Vitals optimization",
+      "Responsive layouts for all breakpoints",
+      "Animation and interaction polish",
+    ],
+    idealFor: "Startups refreshing their product UI or launching a new web app.",
   },
   {
     id: "02",
     title: "Full-Stack Applications",
+    summary: "End-to-end apps from auth to deployment.",
     tags: ["Next.js", "Django", "Node.js", "PostgreSQL", "Supabase", "REST APIs"],
     description:
-      "End-to-end product development — authentication, databases, APIs, and deployment. I architect scalable full-stack systems that grow with your business, from MVP to production.",
-    image: "/kelvin.jpg",
+      "Full product builds covering authentication, database design, API layers, and production deployment — structured to grow from MVP to a stable v1 without rewrites.",
+    deliverables: [
+      "Auth, roles, and secure API routes",
+      "Database schema & migrations",
+      "Admin tools and internal workflows",
+      "Staging + production deployment setup",
+    ],
+    idealFor: "Founders who need a reliable technical partner to ship v1.",
+    image: "/kelvin.png",
   },
   {
     id: "03",
     title: "SaaS & Product Development",
-    tags: ["Multi-tenant", "Stripe Billing", "Dashboard UI", "Admin Panels"],
+    summary: "Subscription products with billing and admin built in.",
+    tags: ["Multi-tenant", "Stripe Billing", "Dashboards", "Admin Panels"],
     description:
-      "Complete SaaS builds including user management, subscription billing, analytics dashboards, and admin tooling. Specialized in the Klyvin product suite pattern.",
+      "I specialize in SaaS architecture — tenant isolation, subscription flows, usage analytics, and operator dashboards — using patterns proven across the Klyvin product suite.",
+    deliverables: [
+      "Stripe checkout & subscription lifecycle",
+      "Customer and admin dashboards",
+      "Usage metrics and reporting views",
+      "Onboarding and account management flows",
+    ],
+    idealFor: "Teams launching or scaling a B2B/B2C SaaS product.",
   },
   {
     id: "04",
     title: "AI Integration",
-    tags: ["OpenAI API", "LangChain", "Prompt Engineering", "Automation"],
+    summary: "Practical LLM features with cost and reliability controls.",
+    tags: ["OpenAI API", "LangChain", "RAG", "Prompt Engineering"],
     description:
-      "Integrate LLMs into your product — smart search, chat assistants, automated workflows, and AI-powered features with proper error handling and cost controls.",
+      "Smart search, assistants, and workflow automation powered by LLMs — with guardrails, fallbacks, token budgeting, and observability so AI features stay production-safe.",
+    deliverables: [
+      "Chat, search, or copilot feature integration",
+      "Prompt templates & evaluation workflow",
+      "Rate limiting and error fallback logic",
+      "Cost monitoring and usage dashboards",
+    ],
+    idealFor: "Products adding AI without sacrificing reliability or margins.",
   },
   {
     id: "05",
     title: "DevOps & Deployment",
-    tags: ["Vercel", "Docker", "CI/CD", "AWS", "Performance Tuning"],
+    summary: "Ship fast, stay fast in production.",
+    tags: ["Vercel", "Docker", "CI/CD", "AWS", "Monitoring"],
     description:
-      "Production-ready deployments with optimized build pipelines, environment management, and Core Web Vitals tuning. Your app shipped fast and kept fast.",
+      "CI/CD pipelines, environment strategy, and performance tuning so releases are predictable and your app stays fast under real traffic.",
+    deliverables: [
+      "Automated build & deploy pipelines",
+      "Environment and secrets management",
+      "Lighthouse & Core Web Vitals tuning",
+      "Monitoring hooks and rollback strategy",
+    ],
+    idealFor: "Teams preparing for launch or stabilizing an existing product.",
   },
 ];
 
@@ -173,9 +222,15 @@ export const certificates: Certificate[] = [
 
 export const education = [
   {
-    degree: "B.Sc. Computer Science (In Progress)",
-    school: "University",
-    year: "2022 - Present",
+    degree: "CTVET - Computer Hardware Technology",
+    school: "Accra Technical Training Centre",
+    year: "2021 - 2024",
+    details: "Computer Hardware,  Computer Networking, and Web Development",
+  },
+  {
+    degree: "B.Tech. Computer Science (In Progress)",
+    school: "Accra TechnicalUniversity",
+    year: "2024 - Present",
     details: "Software engineering, web development, and applied AI systems.",
   },
 ];

@@ -5,15 +5,6 @@ import { marked } from "marked";
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
 
-export interface BlogPost {
-  slug: string;
-  title: string;
-  date: string;
-  description: string;
-  tags: string[];
-  contentHtml: string;
-}
-
 export interface ProjectMetric {
   value: string;
   label: string;
@@ -144,55 +135,6 @@ function parseProject(filename: string, fileContents: string): Project {
     images: data.images || (data.image ? [data.image] : []),
     challenges: data.challenges || "",
     lessons: data.lessons || "",
-    contentHtml,
-  };
-}
-
-export async function getBlogPosts(): Promise<BlogPost[]> {
-  const blogDir = path.join(CONTENT_DIR, "blog");
-  ensureDirectoryExistence(blogDir);
-
-  const filenames = fs.readdirSync(blogDir);
-  const posts = filenames
-    .filter((name) => name.endsWith(".md"))
-    .map((filename) => {
-      const slug = filename.replace(/\.md$/, "");
-      const filePath = path.join(blogDir, filename);
-      const fileContents = fs.readFileSync(filePath, "utf8");
-      const { data, content } = matter(fileContents);
-      const contentHtml = marked(content) as string;
-
-      return {
-        slug,
-        title: data.title || "Untitled Post",
-        date: data.date || "",
-        description: data.description || "",
-        tags: data.tags || [],
-        contentHtml,
-      };
-    });
-
-  return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-}
-
-export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
-  const blogDir = path.join(CONTENT_DIR, "blog");
-  const filePath = path.join(blogDir, `${slug}.md`);
-
-  if (!fs.existsSync(filePath)) {
-    return null;
-  }
-
-  const fileContents = fs.readFileSync(filePath, "utf8");
-  const { data, content } = matter(fileContents);
-  const contentHtml = marked(content) as string;
-
-  return {
-    slug,
-    title: data.title || "Untitled Post",
-    date: data.date || "",
-    description: data.description || "",
-    tags: data.tags || [],
     contentHtml,
   };
 }

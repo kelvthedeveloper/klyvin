@@ -14,7 +14,7 @@ export default async function Home() {
     <>
       <Hero />
       <MarqueeTicker />
-      <ServicesAccordion services={services} showViewAll />
+      <ServicesAccordion services={services} showViewAll compact />
       <ProjectGrid projects={featured.length ? featured : projects} showViewAll limit={4} />
       <TestimonialsSection testimonials={testimonials} />
     </>

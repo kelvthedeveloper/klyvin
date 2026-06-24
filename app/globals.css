@@ -70,6 +70,47 @@ body {
   animation: spin-slow 12s linear infinite;
 }
 
+@keyframes hero-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes hero-glow {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.04); }
+}
+
+@keyframes hero-shimmer {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-hero-float {
+  animation: hero-float 4s ease-in-out infinite;
+}
+
+.animate-hero-float-delayed {
+  animation: hero-float 4s ease-in-out 1.2s infinite;
+}
+
+.animate-hero-glow {
+  animation: hero-glow 5s ease-in-out infinite;
+}
+
+.animate-hero-shimmer {
+  animation: hero-shimmer 18s linear infinite;
+}
+
+.hero-portrait-cutout {
+  mix-blend-mode: multiply;
+  filter: contrast(1.05) saturate(1.08);
+}
+
+.hero-tag {
+  animation: hero-float 5s ease-in-out infinite;
+  box-shadow: 0 8px 24px -6px rgb(0 0 0 / 0.12);
+}
+
 .pill-btn {
   border-radius: 9999px;
 }

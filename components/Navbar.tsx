@@ -8,11 +8,9 @@ import { cn } from "@/lib/utils";
 import { siteInfo } from "@/lib/site-data";
 
 const navLinks = [
-  { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
   { href: "/about", label: "About" },
   { href: "/projects", label: "Projects" },
-  { href: "/blog", label: "Blogs" },
   { href: "/testimonials", label: "Testimonials" },
 ];
 

@@ -35,7 +35,6 @@ export function Footer() {
             {[
               { href: siteInfo.socials.github, icon: Github },
               { href: siteInfo.socials.linkedin, icon: Linkedin },
-              { href: siteInfo.socials.website, icon: Globe },
               { href: `mailto:${siteInfo.email}`, icon: Mail },
             ].map(({ href, icon: Icon }) => (
               <a
